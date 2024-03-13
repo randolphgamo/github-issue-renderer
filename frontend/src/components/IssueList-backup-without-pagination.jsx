@@ -23,7 +23,6 @@ function IssueList(props) {
     async function fetchIssues() {
       try {
         setIsFetching(true);
-        const token = "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";
         const response = await axios.get(url, {
           headers: {
             Accept: "application/vnd.github.v3+json",
