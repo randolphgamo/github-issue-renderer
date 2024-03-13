@@ -21,6 +21,8 @@ function IssueList(props) {
 
   useEffect(() => {
     async function fetchIssues() {
+
+      // i removed the token
       try {
         setIsFetching(true);
         const response = await axios.get(url, {
