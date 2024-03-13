@@ -34,7 +34,7 @@ function IssueList(props) {
         });
         setIssues(response.data);
 
-        setIsFetching(false);
+        setIsFetching(falsed);
         setError(false);
       } catch (error) {
         /* the error is thrown by axios*/
