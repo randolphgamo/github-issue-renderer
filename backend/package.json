@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-sandbox",
+  "name": "github-issue-renderer",
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/codesandbox-app/static-template.git"
   },
   "keywords": [],
-  "author": "Ives van Hoorne",
+  "author": "Randolph Gamo",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/codesandbox-app/static-template/issues"

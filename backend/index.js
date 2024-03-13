@@ -13,10 +13,12 @@ const successLoginUrl = "http://localhost:3000/login/success";
 const errorLoginUrl = "http://localhost:3000/error";
 const clientUrl = "http://localhost:3000";
 
-app.use(cors( { origin: "http://localhost:3000", credentials: true  } ));
+const PORT = process.env.port || 3001;
+
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(
-  session({ secret: "keyboard cat", resave: false, saveUninitialized: false })
+  session({ secret: "my_secret", resave: false, saveUninitialized: false })
 );
 
 app.use(passport.initialize());
@@ -26,8 +28,6 @@ app.use(passport.session());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-
-
 
 app.get(
   "/signin",
@@ -57,58 +57,35 @@ app.get(
   "/auth/github/callback",
   passport.authenticate("github", { failureRedirect: errorLoginUrl }),
   (req, res) => {
-    console.log('You are authenticated');
+    console.log("You are authenticated");
     // res.send("<h1>Thanks for logging in " + req.user.username + "</h1>");
     res.redirect(successLoginUrl);
   }
 );
 
+app.post("/logout", function (req, res, next) {
+  res.clearCookie("connect.sid"); // Clear specific cookie
 
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
 
-
-app.post('/logout', function(req, res, next){
-  res.clearCookie('connect.sid'); // Clear specific cookie
-
-  req.logout(function(err) {
-    if (err) { return next(err); }
-    
-    res.clearCookie('connect.sid'); // Clear specific cookie
+    res.clearCookie("connect.sid"); // Clear specific cookie
     console.log("unauthenticated");
 
-    
-    
     res.sendStatus(200);
     //res.end();
-    
-  });
-}  );
-
-
-
-// app.post('/logout', (req, res, next) => {
-// 	res.clearCookie('connect.sid'); 
-// 	req.logout(function(err) {
-// 		console.log(err)
-// 		req.session.destroy(function (err) { // destroys the session
-// 			res.send();
-// 		});
-// 	});
-// });
-
-
-
-app.post('/logout', function (req, res){
-  req.session.destroy(function (err) {
-    res.send(); //Inside a callback… bulletproof!
   });
 });
 
-
-
-
+app.post("/logout", function (req, res) {
+  req.session.destroy(function (err) {
+    res.send();
+  });
+});
 
 app.get("/auth/user", (req, res) => {
-
   if (req.isAuthenticated()) {
     return res.json(req.user);
   } else {
@@ -124,6 +101,6 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
   console.log("Server started on port 3001");
 });
