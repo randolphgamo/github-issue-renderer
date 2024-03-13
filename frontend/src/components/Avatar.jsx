@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const backend = process.env.BACKEND_URL || 'http://localhost:3001'; // Adjust if using a different framework
+
 
 function Avatar() {
 
@@ -16,7 +18,7 @@ function Avatar() {
         sessionStorage.removeItem("token");
         
         try {
-          const response = await axios.post("http://localhost:3001/logout", {
+          const response = await axios.post(`${backend}/logout`, {
             withCredentials: true,
           });
         } catch (e) {

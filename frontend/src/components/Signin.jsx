@@ -2,6 +2,10 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
+const backend = process.env.BACKEND_URL || 'http://localhost:3001'; // Adjust if using a different framework
+
+
 function Signin() {
 
   const navigate = useNavigate();
@@ -12,7 +16,7 @@ function Signin() {
    
 
     try {
-      const response = await axios.get("http://localhost:3001/auth/user", {
+      const response = await axios.get(`${backend}/auth/user`, {
         withCredentials: true,
       });
 
@@ -31,9 +35,8 @@ function Signin() {
   const handleSubmit = async function () {
 
   let timer = null; 
-   const newWindow = window.open('http://localhost:3001/signin', '_blank', 'width=600,height=600');
+   const newWindow = window.open(`${backend}/signin`, '_blank', 'width=600,height=600');
 
-  // fetchAuthUser();
 
    if (newWindow) {
     timer = setInterval(() => {
