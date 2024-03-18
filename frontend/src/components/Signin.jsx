@@ -24,8 +24,7 @@ function Signin() {
      
       console.log(response.data);
 
-      //assign response.data.photos[0].value to the profile pic
-      console.log(response.data.photos[0].value);
+      
       setUserProfilePic(response.data.photos[0].value);
       sessionStorage.setItem("token", response.data.githubAccessToken);
 
