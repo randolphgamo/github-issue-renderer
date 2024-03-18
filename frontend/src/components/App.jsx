@@ -2,51 +2,27 @@ import React, { useEffect, useState } from "react";
 import Home from "./Home";
 import Signin from "./Signin";
 import LoginSuccess from "./LoginSuccess";
-import axios from "axios";
+import UserContext from "./UserContext";
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import IssueDetails from "./IssueDetails";
 
 function App() {
-  //const token = sessionStorage.getItem("token");
-
-  // //var token = null;
-
   const [token, setToken] = useState(null);
 
-  // async function fetchAuthUser() {
-  //   try {
-  //     const response = await axios.get("http://localhost:3001/auth/user", {
-  //       withCredentials: true,
-  //     });
-  //     const newToken = response.data.githubAccessToken;
-  //     setToken(newToken);
-  //     sessionStorage.setItem("token", newToken);
-  //   } catch (e) {
-  //     console.error("Error fetching token:", e);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   fetchAuthUser();
-  // }); // Empty dependency array to run only once
-
-  //get the github token on the connected user
+  const [userProfilePic, setUserProfilePic] = useState('');
 
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     setToken(token);
-  })
-
-
-
-  //const token = sessionStorage.getItem("token");
-
-  //console.log(token);
+  });
 
   return (
+
     <>
+        <UserContext.Provider value={{ userProfilePic, setUserProfilePic }}>
+
       <Routes>
         <Route exact path="/" element={<Signin />} />
         <Route
@@ -64,6 +40,7 @@ function App() {
         />
         <Route exact path="/login/success" element={<LoginSuccess />} />
       </Routes>
+      </UserContext.Provider>
     </>
   );
 }

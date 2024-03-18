@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import UserContext from "./UserContext";
 
-
-const backend = process.env.BACKEND_URL || 'http://localhost:3001'; // Adjust if using a different framework
+const backend = process.env.BACKEND_URL || 'http://localhost:3001'; 
 
 
 function Signin() {
 
   const navigate = useNavigate();
+ const { setUserProfilePic } = useContext(UserContext);
 
   
   //to get the authenticated user
@@ -20,8 +21,12 @@ function Signin() {
         withCredentials: true,
       });
 
-   
+     
       console.log(response.data);
+
+      //assign response.data.photos[0].value to the profile pic
+      console.log(response.data.photos[0].value);
+      setUserProfilePic(response.data.photos[0].value);
       sessionStorage.setItem("token", response.data.githubAccessToken);
 
       navigate('/issues');
