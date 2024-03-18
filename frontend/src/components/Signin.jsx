@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 
-const backend = process.env.BACKEND_URL || 'http://localhost:3001'; 
+const backend = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001'; 
 
 
 function Signin() {
