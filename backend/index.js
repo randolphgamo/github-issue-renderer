@@ -14,6 +14,8 @@ const frontend = process.env.FRONTEND_URL || "http://localhost:3000";
 const successLoginUrl = `${frontend}/login/success`;
 const errorLoginUrl = `${frontend}/error`;
 
+const callback =    `${frontend}/auth/github/callback`;
+
 // const successLoginUrl = "http://localhost:3000/login/success";
 // const errorLoginUrl = "http://localhost:3000/error";
 // const clientUrl = "http://localhost:3000";
@@ -47,7 +49,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "/auth/github/callback",
+      callbackURL: callback,
     },
     (accessToken, refreshToken, profile, cb) => {
       //add the token here
