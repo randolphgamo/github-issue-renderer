@@ -14,7 +14,7 @@ const frontend = process.env.FRONTEND_URL || "http://localhost:3000";
 const successLoginUrl = `${frontend}/login/success`;
 const errorLoginUrl = `${frontend}/error`;
 
-const callback =    `${frontend}/auth/github/callback`;
+//const callback =    `${frontend}/auth/github/callback`;
 
 // const successLoginUrl = "http://localhost:3000/login/success";
 // const errorLoginUrl = "http://localhost:3000/error";
@@ -49,7 +49,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: callback,
+      callbackURL: "http://github-issue-renderer-backend.vercel.app/auth/github/callback",
     },
     (accessToken, refreshToken, profile, cb) => {
       //add the token here
